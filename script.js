@@ -249,20 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 250);
     }
 
-    /* ==========================================================================
-       9. Botones Extra (Compartir)
-       ========================================================================== */
-    document.getElementById('share-whatsapp').addEventListener('click', () => {
-        const text = encodeURIComponent("¡Estás invitado a mis XV Años! Mira mi invitación digital aquí: " + window.location.href);
-        window.open(`https://wa.me/?text=${text}`, '_blank');
-    });
 
-    document.getElementById('copy-link').addEventListener('click', () => {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-            alert('¡Enlace copiado al portapapeles!');
-        }).catch(err => {
-            console.error('Error al copiar: ', err);
-        });
-    });
 
 });
