@@ -116,16 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ==========================================================================
        5. Cuenta Regresiva
        ========================================================================== */
-    // Configura la fecha del evento aquí (Año, Mes (0-11), Día, Hora, Minuto)
-    // Ejemplo: 15 de Noviembre de 2026 a las 17:00
-    const eventDate = new Date(2026, 10, 15, 17, 0, 0).getTime();
+    // Fecha del evento: 20 de Septiembre a las 00:00 horas
+    const eventDate = new Date(2026, 8, 20, 0, 0, 0).getTime(); // Mes 8 = Septiembre
 
     function updateCountdown() {
         const now = new Date().getTime();
         const distance = eventDate - now;
 
-        if (distance < 0) {
-            document.querySelector('.countdown-container').innerHTML = "<h3>¡El gran día ha llegado!</h3>";
+        if (distance <= 0) {
+            document.querySelector('.countdown-container').innerHTML = "<h3 style='font-size: 2.5rem; color: var(--color-rosa-oscuro); text-align: center; width: 100%;'>¡Hoy es el día!</h3>";
             return;
         }
 
