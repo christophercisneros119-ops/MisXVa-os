@@ -44,42 +44,52 @@ document.addEventListener('DOMContentLoaded', () => {
        3. Pantalla de Bienvenida y Música
        ========================================================================== */
     
-    // Reproducir música en cualquier clic para asegurar que funcione
-    document.body.addEventListener('click', () => {
-        if (!isMusicStarted && ytPlayer && typeof ytPlayer.playVideo === 'function') {
-            ytPlayer.playVideo();
-            isMusicStarted = true;
+    // Función para reproducir la música
+    function tryPlayMusic() {
+        if (!isMusicStarted && typeof ytPlayer !== 'undefined' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+            try {
+                ytPlayer.playVideo();
+                isMusicStarted = true;
+            } catch (e) {
+                console.log("Error al reproducir música:", e);
+            }
         }
+    }
+
+    // Reproducir música en cualquier clic/toque para asegurar que funcione en móviles
+    ['click', 'touchstart'].forEach(evt => {
+        document.body.addEventListener(evt, tryPlayMusic, { passive: true });
     });
 
-    openBtn.addEventListener('click', () => {
-        if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
-            ytPlayer.playVideo();
-            isMusicStarted = true;
-        }
-        
-        welcomeScreen.style.opacity = '0';
-        welcomeScreen.style.transform = 'scale(1.1)';
-        
-        setTimeout(() => {
-            welcomeScreen.classList.add('hidden');
-            mainContent.classList.remove('hidden');
+    ['click', 'touchstart'].forEach(evt => {
+        openBtn.addEventListener(evt, (e) => {
+            if (evt === 'touchstart') e.preventDefault(); // Evitar doble evento
+            tryPlayMusic();
             
-            initScrollReveal();
-        }, 1000);
+            welcomeScreen.style.opacity = '0';
+            welcomeScreen.style.transform = 'scale(1.1)';
+            
+            setTimeout(() => {
+                welcomeScreen.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                
+                initScrollReveal();
+            }, 1000);
+        });
     });
 
     let ytPlayer;
 
     window.onYouTubeIframeAPIReady = function() {
         ytPlayer = new YT.Player('youtube-player', {
-            height: '200',
-            width: '200',
+            height: '100',
+            width: '100',
             videoId: 'o1Z_hskvz1M',
             playerVars: {
                 'autoplay': 0,
                 'controls': 0,
                 'loop': 1,
+                'playsinline': 1,
                 'playlist': 'o1Z_hskvz1M',
                 'origin': window.location.origin
             },

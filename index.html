@@ -25,7 +25,7 @@
 <body>
 
     <!-- Contenedor oculto para YouTube Player -->
-    <div id="youtube-player-container" style="position: absolute; top: -9999px; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+    <div id="youtube-player-container" style="position: fixed; top: 0; left: 0; width: 100px; height: 100px; opacity: 0.01; pointer-events: none; z-index: 9999;">
         <div id="youtube-player"></div>
     </div>
     <!-- Script de YouTube IFrame API -->
