@@ -6,12 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const welcomeScreen = document.getElementById('welcome-screen');
     const mainContent = document.getElementById('main-content');
     const openBtn = document.getElementById('open-btn');
-    const bgMusic = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-    const musicIcon = musicBtn.querySelector('i');
     const scrollTopBtn = document.getElementById('scroll-top-btn');
 
-    let isPlaying = false;
+    let isMusicStarted = false;
 
     /* ==========================================================================
        2. Partículas (Usando particles.js)
@@ -38,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "retina_detect": true
     };
 
-    // Inicializar partículas en ambas secciones
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js-welcome', particlesConfig);
         particlesJS('particles-js-hero', particlesConfig);
@@ -47,47 +43,51 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ==========================================================================
        3. Pantalla de Bienvenida y Música
        ========================================================================== */
+    
+    // Reproducir música en cualquier clic para asegurar que funcione
+    document.body.addEventListener('click', () => {
+        if (!isMusicStarted && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+            ytPlayer.playVideo();
+            isMusicStarted = true;
+        }
+    });
+
     openBtn.addEventListener('click', () => {
-        // Animación de salida
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+            ytPlayer.playVideo();
+            isMusicStarted = true;
+        }
+        
         welcomeScreen.style.opacity = '0';
         welcomeScreen.style.transform = 'scale(1.1)';
         
         setTimeout(() => {
             welcomeScreen.classList.add('hidden');
             mainContent.classList.remove('hidden');
-            musicBtn.classList.remove('hidden');
             
-            // Intentar reproducir música
-            playMusic();
-            
-            // Refrescar AOS o ScrollReveal si se usaran librerías, pero aquí usamos IntersectionObserver
             initScrollReveal();
         }, 1000);
     });
 
-    function playMusic() {
-        bgMusic.play().then(() => {
-            isPlaying = true;
-            musicIcon.classList.remove('fa-volume-mute');
-            musicIcon.classList.add('fa-volume-up');
-        }).catch(err => {
-            console.log("Autoplay bloqueado por el navegador, el usuario debe interactuar.");
-            isPlaying = false;
-        });
-    }
+    let ytPlayer;
 
-    musicBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            bgMusic.pause();
-            musicIcon.classList.remove('fa-volume-up');
-            musicIcon.classList.add('fa-volume-mute');
-        } else {
-            bgMusic.play();
-            musicIcon.classList.remove('fa-volume-mute');
-            musicIcon.classList.add('fa-volume-up');
-        }
-        isPlaying = !isPlaying;
-    });
+    window.onYouTubeIframeAPIReady = function() {
+        ytPlayer = new YT.Player('youtube-player', {
+            height: '200',
+            width: '200',
+            videoId: 'o1Z_hskvz1M',
+            playerVars: {
+                'autoplay': 0,
+                'controls': 0,
+                'loop': 1,
+                'playlist': 'o1Z_hskvz1M',
+                'origin': window.location.origin
+            },
+            events: {
+                'onReady': function() {}
+            }
+        });
+    };
 
     /* ==========================================================================
        4. Scroll Reveal (Aparición suave al hacer scroll)

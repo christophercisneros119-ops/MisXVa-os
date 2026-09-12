@@ -24,16 +24,14 @@
 </head>
 <body>
 
-    <!-- Música de fondo -->
-    <audio id="bg-music" loop>
-        <!-- Reemplaza src con la ruta de tu canción -->
-        <!-- <source src="assets/musica/cancion.mp3" type="audio/mpeg"> -->
-    </audio>
+    <!-- Contenedor oculto para YouTube Player -->
+    <div id="youtube-player-container" style="position: absolute; top: -9999px; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+        <div id="youtube-player"></div>
+    </div>
+    <!-- Script de YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
 
-    <!-- Control de música flotante -->
-    <button id="music-btn" class="floating-btn music-btn hidden">
-        <i class="fas fa-volume-mute"></i>
-    </button>
+
 
     <!-- Pantalla de Bienvenida -->
     <div id="welcome-screen" class="welcome-screen">
