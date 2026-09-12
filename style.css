@@ -652,11 +652,31 @@ footer {
 /* ==========================================================================
    Media Queries (Responsive)
    ========================================================================== */
+
+/* Tablets - Portrait */
+@media (max-width: 992px) {
+    .main-name { font-size: 5rem; }
+    .welcome-title { font-size: 4.5rem; }
+    .section-title { font-size: 3rem; }
+}
+
 @media (max-width: 768px) {
+    section {
+        padding: 4rem 1.5rem;
+    }
+
     .welcome-title { font-size: 4rem; }
+    .welcome-subtitle { font-size: 1rem; margin-bottom: 2rem; }
+    
     .main-name { font-size: 4.5rem; }
+    .hero-age { font-size: 2.5rem; }
     .section-title { font-size: 2.8rem; }
     
+    .hero-text {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+
     .countdown-container {
         gap: 1rem;
     }
@@ -671,9 +691,99 @@ footer {
     .action-buttons {
         flex-direction: column;
     }
-    
-    .hero-text {
-        padding: 2rem;
-        margin: 0 1rem;
+
+    .details-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
+
+    .rsvp-form {
+        padding: 2rem 1.5rem;
+    }
+
+    .farewell-title { font-size: 3.5rem; }
+}
+
+/* Smartphones */
+@media (max-width: 480px) {
+    section {
+        padding: 3rem 1rem;
+    }
+
+    .welcome-title { font-size: 3.2rem; }
+    .welcome-subtitle { font-size: 0.9rem; }
+    .open-btn { padding: 12px 30px; font-size: 1rem; }
+
+    .main-name { font-size: 3.5rem; }
+    .hero-age { font-size: 2rem; }
+    .hero-date { font-size: 1rem; }
+    .hero-text {
+        padding: 1.5rem;
+        margin: 0 0.5rem;
+    }
+
+    .section-title { font-size: 2.2rem; }
+
+    .photo-container {
+        width: 200px;
+        height: 280px;
+        border-width: 6px;
+    }
+
+    .quote { font-size: 1rem; }
+
+    .countdown-container {
+        gap: 0.5rem;
+    }
+
+    .time-box {
+        width: 65px;
+        height: 65px;
+        border-radius: 10px;
+    }
+
+    .time-box span { font-size: 1.5rem; }
+    .time-box p { font-size: 0.7rem; }
+
+    .detail-card {
+        padding: 2rem 1rem;
+    }
+    
+    .detail-card h3 { font-size: 2rem; }
+    .detail-card .icon { font-size: 2.5rem; }
+
+    .icon-large { font-size: 3rem; }
+
+    .rsvp-form {
+        padding: 1.5rem 1rem;
+    }
+
+    .farewell-title { font-size: 2.8rem; }
+    
+    .btn-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .floating-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+    .music-btn { left: 15px; bottom: 15px; }
+    .top-btn { right: 15px; bottom: 15px; }
+}
+
+/* Very Small Smartphones */
+@media (max-width: 360px) {
+    .main-name { font-size: 2.8rem; }
+    .welcome-title { font-size: 2.5rem; }
+    
+    .time-box {
+        width: 55px;
+        height: 55px;
+    }
+    .time-box span { font-size: 1.2rem; }
+    .time-box p { font-size: 0.6rem; }
 }
