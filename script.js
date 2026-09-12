@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
     const openBtn = document.getElementById('open-btn');
     const scrollTopBtn = document.getElementById('scroll-top-btn');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = musicBtn.querySelector('i');
+    const bgMusic = document.getElementById('bg-music');
 
-    let isMusicStarted = false;
+    let isPlaying = false;
 
     /* ==========================================================================
        2. Partículas (Usando particles.js)
@@ -44,60 +47,58 @@ document.addEventListener('DOMContentLoaded', () => {
        3. Pantalla de Bienvenida y Música
        ========================================================================== */
     
-    // Función para reproducir la música
-    function tryPlayMusic() {
-        if (!isMusicStarted && typeof ytPlayer !== 'undefined' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
-            try {
-                ytPlayer.playVideo();
-                isMusicStarted = true;
-            } catch (e) {
-                console.log("Error al reproducir música:", e);
-            }
+    let invitationOpened = false;
+
+    function openInvitation() {
+        if (invitationOpened) return;
+        invitationOpened = true;
+
+        welcomeScreen.style.opacity = '0';
+        welcomeScreen.style.transform = 'scale(1.1)';
+        
+        setTimeout(() => {
+            welcomeScreen.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            initScrollReveal();
+            
+            musicBtn.classList.remove('hidden'); // Mostrar el botón
+        }, 1000);
+    }
+
+    function handleOpen(e) {
+        if (e && e.type === 'touchstart') {
+            e.preventDefault(); // Prevenir el evento 'click' duplicado
+        }
+        
+        openInvitation();
+        
+        // Intentar reproducir de forma síncrona el audio nativo
+        if (bgMusic) {
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-volume-up');
+            }).catch(err => {
+                console.error("Audio autoplay blockeado", err);
+            });
         }
     }
 
-    // Reproducir música en cualquier clic/toque para asegurar que funcione en móviles
-    ['click', 'touchstart'].forEach(evt => {
-        document.body.addEventListener(evt, tryPlayMusic, { passive: true });
+    openBtn.addEventListener('click', handleOpen);
+    openBtn.addEventListener('touchstart', handleOpen, { passive: false });
+
+    musicBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            bgMusic.pause();
+            musicIcon.classList.remove('fa-volume-up');
+            musicIcon.classList.add('fa-volume-mute');
+        } else {
+            bgMusic.play();
+            musicIcon.classList.remove('fa-volume-mute');
+            musicIcon.classList.add('fa-volume-up');
+        }
+        isPlaying = !isPlaying;
     });
-
-    ['click', 'touchstart'].forEach(evt => {
-        openBtn.addEventListener(evt, (e) => {
-            if (evt === 'touchstart') e.preventDefault(); // Evitar doble evento
-            tryPlayMusic();
-            
-            welcomeScreen.style.opacity = '0';
-            welcomeScreen.style.transform = 'scale(1.1)';
-            
-            setTimeout(() => {
-                welcomeScreen.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-                
-                initScrollReveal();
-            }, 1000);
-        });
-    });
-
-    let ytPlayer;
-
-    window.onYouTubeIframeAPIReady = function() {
-        ytPlayer = new YT.Player('youtube-player', {
-            height: '100',
-            width: '100',
-            videoId: 'o1Z_hskvz1M',
-            playerVars: {
-                'autoplay': 0,
-                'controls': 0,
-                'loop': 1,
-                'playsinline': 1,
-                'playlist': 'o1Z_hskvz1M',
-                'origin': window.location.origin
-            },
-            events: {
-                'onReady': function() {}
-            }
-        });
-    };
 
     /* ==========================================================================
        4. Scroll Reveal (Aparición suave al hacer scroll)

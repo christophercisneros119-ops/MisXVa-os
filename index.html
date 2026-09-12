@@ -24,12 +24,15 @@
 </head>
 <body>
 
-    <!-- Contenedor oculto para YouTube Player -->
-    <div id="youtube-player-container" style="position: fixed; top: 0; left: 0; width: 100px; height: 100px; opacity: 0.01; pointer-events: none; z-index: 9999;">
-        <div id="youtube-player"></div>
-    </div>
-    <!-- Script de YouTube IFrame API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- Música de fondo -->
+    <audio id="bg-music" loop>
+        <source src="assets/musica/cancion.mp4" type="audio/mp4">
+    </audio>
+
+    <!-- Control de música flotante -->
+    <button id="music-btn" class="floating-btn music-btn hidden">
+        <i class="fas fa-volume-up"></i>
+    </button>
 
 
 
@@ -44,6 +47,8 @@
             </button>
         </div>
     </div>
+
+
 
     <!-- Contenido Principal -->
     <main id="main-content" class="hidden">
@@ -108,9 +113,9 @@
                 <!-- Recepción / Evento Principal -->
                 <div class="detail-card" style="width: 100%; max-width: 450px;">
                     <i class="fas fa-glass-cheers icon"></i>
-                    <h3>Recepción</h3>
+                    <h3>Casa de habitación</h3>
                     <p class="time">3:00 PM</p>
-                    <p class="location-name">Casa de habitación</p>
+                    <p class="location-name">Dirección</p>
                     <p class="address">Semaforos de Linda Vista 1 arriba, 1 1/2 al sur</p>
                     <a href="https://maps.google.com" target="_blank" class="btn-outline">Ver Mapa</a>
                 </div>
