@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formMessage = document.getElementById('form-message');
 
     // REEMPLAZAR ESTA URL POR LA URL DEL WEB APP DE GOOGLE APPS SCRIPT
-    const scriptURL = 'AQUI_LA_URL_DE_TU_WEB_APP';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxTLxvZZo8D0b08bqdHA0Q3Prtvk_9xpr7hgdPaxO2oyNQwBpKNDKF4PDGKRIINta9W/exec';
 
     function setAttendance(value, activeBtn, inactiveBtn) {
         attendanceInput.value = value;
